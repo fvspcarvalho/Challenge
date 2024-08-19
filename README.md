@@ -1,0 +1,2 @@
+# AptoideDemo
+Android Technical Challenge
