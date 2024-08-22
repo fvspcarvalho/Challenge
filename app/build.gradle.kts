@@ -23,6 +23,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // The schemas directory contains a schema file for each version of the Room database.
+        // This is required to enable Room auto migrations.
+        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration.
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+        testInstrumentationRunner = "com.data.database.migrations"
     }
 
     buildTypes {
@@ -75,12 +83,19 @@ dependencies {
     implementation(libs.square.retrofit)
     implementation(libs.square.retrofit.kotlinx.serialization)
     implementation(libs.android.hilt)
+    implementation(libs.android.hilt.work)
     ksp(libs.android.hilt.compiler)
 
     implementation(libs.jetbrains.kotlinx.coroutines.core)
     implementation(libs.jetbrains.kotlinx.serialization)
 
     implementation(libs.helpers.coil)
+
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+
+    implementation(libs.androidx.work)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
