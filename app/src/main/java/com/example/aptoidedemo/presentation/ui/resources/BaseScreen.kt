@@ -9,17 +9,24 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun BaseScreen(
+    isLoading: Boolean = false,
     topBar: @Composable () -> Unit = {},
     content: @Composable () -> Unit = {},
 ) {
-    Scaffold(
-        topBar = { topBar() }
-    ) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(it)
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            topBar = { topBar() }
         ) {
-            content()
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
+                content()
+            }
+        }
+        if (isLoading) {
+            MaxSizeLoading()
         }
     }
 }
