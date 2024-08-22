@@ -1,81 +1,63 @@
 package com.example.aptoidedemo.presentation.ui.resources
 
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.RenderVectorGroup
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
-import androidx.compose.ui.layout.ContentScale.Companion.FillHeight
 import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
-import androidx.compose.ui.layout.ContentScale.Companion.Fit
-import androidx.compose.ui.layout.ContentScale.Companion.Inside
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
-import androidx.compose.ui.unit.sp
-import coil.ImageLoader
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
-import coil.imageLoader
-import coil.request.ErrorResult
 import coil.request.ImageRequest
-import coil.request.SuccessResult
-import com.example.aptoidedemo.R
 import kotlinx.coroutines.Dispatchers
-import okhttp3.Dispatcher
+
+
+@Composable
+fun MyAlertDialog(
+    title: String,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text = title) },
+        text = { Text(text = "Download is not available in demo mode") },
+        confirmButton = { // 6
+            Button(onClick = onDismiss) {
+                Text(
+                    text = "Confirm",
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        }
+    )
+}
 
 @Composable
 fun AppCard(
@@ -101,7 +83,7 @@ fun AppCard(
         Box(
             modifier = Modifier
                 .weight(1f)
-                .border(1.dp, color = Color.White),
+                .border(1.dp, color = MaterialTheme.colorScheme.onPrimary),
             contentAlignment = Alignment.Center
         ) {
             SubcomposeAsyncImage(
@@ -123,8 +105,14 @@ fun AppCard(
             modifier = Modifier
                 .weight(2f)
                 .padding(start = 10.dp),
-        )  {
-            Text(modifier = Modifier.fillMaxWidth(), text = title, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
             RatingCard(modifier = Modifier.fillMaxWidth(), rating = rating)
         }
     }
@@ -134,7 +122,7 @@ fun AppCard(
 fun DetailsCard(
     icon: String,
     photo: String,
-    downloads: String,
+    downloads: Long,
     name: String,
     storeName: String,
     rating: String,
@@ -161,7 +149,7 @@ fun DetailsCard(
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        .border(1.dp, color = Color.White),
+                        .border(1.dp, color = MaterialTheme.colorScheme.onPrimary),
                     contentAlignment = Alignment.Center
                 ) {
                     SubcomposeAsyncImage(
@@ -188,20 +176,24 @@ fun DetailsCard(
                         modifier = Modifier.fillMaxWidth(),
                         text = "App name: $name",
                         maxLines = 3,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = "Store name: $storeName",
                         maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
             InfoCard(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 rating = rating,
-                downloads = downloads
+                downloads = adaptLongNumber(downloads)
             )
 
             val vectorPainter = rememberVectorPainterWithAlpha()
@@ -211,7 +203,9 @@ fun DetailsCard(
                 .build()
 
             Box(
-                modifier = Modifier.border(1.dp, color = Color.White),
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .border(1.dp, color = MaterialTheme.colorScheme.onPrimary),
                 contentAlignment = Alignment.Center
             ) {
                 SubcomposeAsyncImage(
@@ -229,7 +223,10 @@ fun DetailsCard(
                 )
             }
 
-            Button(onClick = onClick) { Text(text = "Download") }
+            Button(
+                onClick = onClick,
+                modifier = Modifier.padding(top = 10.dp)
+            ) { Text(text = "Download") }
         }
     }
 }
@@ -239,19 +236,20 @@ fun DetailsCard(
 fun InfoCard(rating: String, downloads: String, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Rating: $rating")
+        Row {
+            Text(text = "Rating: $rating", color = MaterialTheme.colorScheme.onPrimary)
 
-        Icon(
-            imageVector = Icons.Filled.Star,
-            contentDescription = "star"
-        )
+            Icon(
+                imageVector = Icons.Filled.Star,
+                contentDescription = "star",
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
 
-        VerticalDivider()
-
-        Text(text = "Downloads: $downloads")
+        Text(text = "Downloads: $downloads", color = MaterialTheme.colorScheme.onPrimary)
 
     }
 }
@@ -265,9 +263,10 @@ fun RatingCard(rating: String, modifier: Modifier = Modifier) {
     ) {
         Icon(
             imageVector = Icons.Filled.Star,
-            contentDescription = "star"
+            contentDescription = "star",
+            tint = MaterialTheme.colorScheme.primary
         )
-        Text(text = rating)
+        Text(text = rating, color = MaterialTheme.colorScheme.onPrimary)
     }
 }
 
@@ -289,6 +288,18 @@ fun rememberVectorPainterWithAlpha(
         autoMirror = imageVector.autoMirror,
         content = { _, _ -> RenderVectorGroup(group = imageVector.root) }
     )
+}
+
+private fun adaptLongNumber(value: Long): String {
+    return when {
+        value >= 10000000 -> "+1M"
+        value >= 5000000 -> "+500k"
+        value >= 1000000 -> "+100k"
+        value >= 10000 -> "+10k"
+        value >= 1000 -> "+1k"
+        value > 100 -> "+100"
+        else -> value.toString()
+    }
 }
 
 @Preview

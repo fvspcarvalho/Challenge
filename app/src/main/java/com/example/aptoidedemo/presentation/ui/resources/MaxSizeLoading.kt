@@ -21,7 +21,10 @@ fun MaxSizeLoading() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .clickable(interactionSource, indication = null) { /*do nothing just to intercept touches*/ }
+            .clickable(
+                interactionSource,
+                indication = null
+            ) { /*do nothing just to intercept touches*/ }
             .background(Color.White.copy(alpha = 0.7f)),
         contentAlignment = Alignment.Center
     ) {

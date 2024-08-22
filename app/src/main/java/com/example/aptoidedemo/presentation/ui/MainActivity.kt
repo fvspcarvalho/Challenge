@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainNavigation {
-                       createNotificationChannel()
-                       createWorkRequest()
+                        createNotificationChannel()
+                        createWorkRequest()
                     }
                 }
             }
@@ -41,11 +41,16 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun createNotificationChannel() {
-        val channel = NotificationChannel("work_manager_channel", "Work Manager Channel", NotificationManager.IMPORTANCE_DEFAULT )
+        val channel = NotificationChannel(
+            "work_manager_channel",
+            "Work Manager Channel",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
             .apply {
                 description = "Channel Description"
             }
-        val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 

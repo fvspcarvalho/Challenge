@@ -19,7 +19,9 @@ class LandingViewModel @Inject constructor(
     private val _state = MutableStateFlow(LandingUiState())
     val state = _state.asStateFlow()
 
-    init { getData() }
+    init {
+        getData()
+    }
 
     private fun getData() {
         viewModelScope.launch {
@@ -27,7 +29,7 @@ class LandingViewModel @Inject constructor(
                 .onEach {
                     if (it.isEmpty()) {
                         _state.emit(_state.value.copy(isLoading = true))
-                        when(val result = aptoideManager.refresh(true)) {
+                        when (val result = aptoideManager.fetchData()) {
                             is ResultHandler.Error ->
                                 _state.emit(
                                     _state.value.copy(
@@ -48,7 +50,7 @@ class LandingViewModel @Inject constructor(
 
     fun onRefresh() {
         viewModelScope.launch {
-            when(val result = aptoideManager.refresh(_state.value.data.isEmpty())) {
+            when (val result = aptoideManager.fetchData()) {
                 is ResultHandler.Error ->
                     _state.emit(_state.value.copy(message = "${result.exception}"))
 

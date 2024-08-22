@@ -25,7 +25,10 @@ fun rememberPermissionState(
     }
 
     val checkPermission: () -> Boolean = {
-        ContextCompat.checkSelfPermission(context, permission) == PermissionChecker.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(
+            context,
+            permission
+        ) == PermissionChecker.PERMISSION_GRANTED
     }
 
     // rememberUpdatedState to ensure latest functions are used inside the launcher callback

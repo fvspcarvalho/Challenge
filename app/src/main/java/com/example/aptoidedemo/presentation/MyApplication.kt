@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MyApplication : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var workerFactory : MyWorkerFactory
+    lateinit var workerFactory: MyWorkerFactory
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()

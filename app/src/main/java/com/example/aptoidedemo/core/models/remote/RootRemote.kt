@@ -151,7 +151,7 @@ fun ContentRemote.mapToContent(): Content {
         verName = this.verName ?: "",
         verCode = this.verCode ?: 0,
         md5sum = this.md5sum ?: "",
-        apkTags = this.apkTags?: emptyList(),
+        apkTags = this.apkTags ?: emptyList(),
         size = this.size ?: 0,
         downloads = this.downloads ?: 0,
         pDownloads = this.pDownloads ?: 0,
