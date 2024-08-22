@@ -7,31 +7,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.aptoidedemo.presentation.ui.details.DetailsScreen
-import com.example.aptoidedemo.presentation.ui.landing.LandingScreen
+import androidx.navigation.navArgument
+import com.example.aptoidedemo.presentation.ui.screens.details.DetailsScreen
+import com.example.aptoidedemo.presentation.ui.screens.landing.LandingScreen
 
 
 enum class NavigationRoute(val route: String) {
     LANDING_SCREEN("landing"),
-    DETAILS_SCREEN("details"),
+    DETAILS_SCREEN("details/{id}"),
 }
 
 @Composable
-fun MainNavigation() {
+fun MainNavigation(onGranted: () -> Unit = {}) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = NavigationRoute.LANDING_SCREEN.route) {
         composable(route = NavigationRoute.LANDING_SCREEN.route) {
-            LandingScreen {
-                navController.navigate(NavigationRoute.DETAILS_SCREEN.route) {
+            LandingScreen(
+                onGranted = onGranted
+            ) {
+                navController.navigate("details/$it") {
                     launchSingleTop = true
                 }
             }
         }
         composable(
             route = NavigationRoute.DETAILS_SCREEN.route,
+            arguments = listOf(navArgument("id") { type = NavType.LongType }),
             enterTransition = {
                 slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left,
@@ -57,7 +62,10 @@ fun MainNavigation() {
                 )
             }
         ) {
-            DetailsScreen(modifier = Modifier.padding(16.dp)) {
+            DetailsScreen(
+                id = it.arguments?.getLong("id") ?: 0,
+                modifier = Modifier.padding(16.dp)
+            ) {
                 navController.popBackStackLocal()
             }
         }
