@@ -1,8 +1,8 @@
 package com.example.aptoidedemo.core.network.services
 
-import com.example.aptoidedemo.core.network.endpoints.AptoideApi
 import com.example.aptoidedemo.core.models.remote.RootRemote
 import com.example.aptoidedemo.core.models.result.ResultHandler
+import com.example.aptoidedemo.core.network.endpoints.AptoideApi
 import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Singleton

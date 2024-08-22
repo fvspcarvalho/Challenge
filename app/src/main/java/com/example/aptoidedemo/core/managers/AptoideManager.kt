@@ -18,7 +18,7 @@ class AptoideManager @Inject constructor(
     private val contentDao: ContentDao
 ) {
 
-    private suspend fun fetchData(): ResultHandler<Boolean> {
+    suspend fun fetchData(): ResultHandler<Boolean> {
         return when (val result = aptoideService.fetchData()) {
             is ResultHandler.Error -> ResultHandler.Error(result.exception)
             is ResultHandler.Success -> {
@@ -26,7 +26,8 @@ class AptoideManager @Inject constructor(
                     result.data
                         .mapToRoot()
                         .responses.listApps.datasets.all.data.content
-                        .mapToListContentEntity())
+                        .mapToListContentEntity()
+                )
                 ResultHandler.Success(true)
             }
         }
@@ -37,13 +38,4 @@ class AptoideManager @Inject constructor(
         .map { it.mapToListContent() }
 
     suspend fun getContent(id: Long) = contentDao.getContent(id).mapToContent()
-
-    suspend fun refresh(fetch: Boolean): ResultHandler<Boolean> {
-        contentDao.clear()
-        return if (fetch) {
-            fetchData()
-        } else {
-            ResultHandler.Success(true)
-        }
-    }
 }

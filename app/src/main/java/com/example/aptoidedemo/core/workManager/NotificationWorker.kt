@@ -1,45 +1,33 @@
 package com.example.aptoidedemo.core.workManager
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ListenableWorker
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.example.aptoidedemo.R
 import com.example.aptoidedemo.core.managers.AptoideManager
-import com.example.aptoidedemo.core.models.local.ContentDao
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltWorker
 class NotificationWorker @AssistedInject constructor(
-    @Assisted val appContext : Context,
-    @Assisted workerParams : WorkerParameters,
+    @Assisted val appContext: Context,
+    @Assisted workerParams: WorkerParameters,
     private val aptoideManager: AptoideManager
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
         try {
             withContext(Dispatchers.IO) {
-                aptoideManager.refresh(true)
+                aptoideManager.fetchData()
                 createNotification("Aptoide Demo", "You have new apps available!")
             }
             return Result.success()
@@ -63,7 +51,8 @@ class NotificationWorker @AssistedInject constructor(
     }
 }
 
-class MyWorkerFactory @Inject constructor (private val aptoideManager: AptoideManager) : WorkerFactory() {
+class MyWorkerFactory @Inject constructor(private val aptoideManager: AptoideManager) :
+    WorkerFactory() {
     override fun createWorker(
         appContext: Context,
         workerClassName: String,
