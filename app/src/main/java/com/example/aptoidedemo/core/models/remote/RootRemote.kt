@@ -1,14 +1,14 @@
-package com.example.aptoidedemo.data.network
+package com.example.aptoidedemo.core.models.remote
 
-import com.example.aptoidedemo.data.local.All
-import com.example.aptoidedemo.data.local.Content
-import com.example.aptoidedemo.data.local.Data
-import com.example.aptoidedemo.data.local.Datasets
-import com.example.aptoidedemo.data.local.Info
-import com.example.aptoidedemo.data.local.ListApps
-import com.example.aptoidedemo.data.local.Responses
-import com.example.aptoidedemo.data.local.Root
-import com.example.aptoidedemo.data.local.Time
+import com.example.aptoidedemo.core.models.local.All
+import com.example.aptoidedemo.core.models.local.Content
+import com.example.aptoidedemo.core.models.local.Data
+import com.example.aptoidedemo.core.models.local.Datasets
+import com.example.aptoidedemo.core.models.local.Info
+import com.example.aptoidedemo.core.models.local.ListApps
+import com.example.aptoidedemo.core.models.local.Responses
+import com.example.aptoidedemo.core.models.local.Root
+import com.example.aptoidedemo.core.models.local.Time
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

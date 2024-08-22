@@ -22,17 +22,19 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BasicTopBar(title: String, onArrowBackClick: () -> Unit) {
+fun BasicTopBar(title: String, navigationIconEnable: Boolean = true, onArrowBackClick: () -> Unit = {}) {
     TopAppBar(
         title = {
             Text(title)
         },
         navigationIcon = {
-            IconButton({ onArrowBackClick() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "back"
-                )
+            if(navigationIconEnable) {
+                IconButton({ onArrowBackClick() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "back"
+                    )
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(MaterialTheme.colorScheme.primaryContainer),

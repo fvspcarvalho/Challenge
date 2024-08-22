@@ -1,0 +1,139 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ce2916cd514e191074473c8b29afd598",
+    "entities": [
+      {
+        "tableName": "content_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `packageField` TEXT NOT NULL, `storeId` INTEGER NOT NULL, `storeName` TEXT NOT NULL, `verName` TEXT NOT NULL, `verCode` INTEGER NOT NULL, `md5sum` TEXT NOT NULL, `apkTags` TEXT NOT NULL, `size` INTEGER NOT NULL, `downloads` INTEGER NOT NULL, `pDownloads` INTEGER NOT NULL, `added` TEXT NOT NULL, `modified` TEXT NOT NULL, `updated` TEXT NOT NULL, `rating` REAL NOT NULL, `icon` TEXT NOT NULL, `graphic` TEXT NOT NULL, `upType` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageField",
+            "columnName": "packageField",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storeId",
+            "columnName": "storeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storeName",
+            "columnName": "storeName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "verName",
+            "columnName": "verName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "verCode",
+            "columnName": "verCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "md5sum",
+            "columnName": "md5sum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "apkTags",
+            "columnName": "apkTags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "size",
+            "columnName": "size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloads",
+            "columnName": "downloads",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pDownloads",
+            "columnName": "pDownloads",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "added",
+            "columnName": "added",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modified",
+            "columnName": "modified",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated",
+            "columnName": "updated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "icon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "graphic",
+            "columnName": "graphic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "upType",
+            "columnName": "upType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce2916cd514e191074473c8b29afd598')"
+    ]
+  }
+}
