@@ -55,8 +55,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun createWorkRequest() {
-        val myWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
-            .setInitialDelay(30, TimeUnit.SECONDS)
+        val myWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(30, TimeUnit.MINUTES)
+            .setInitialDelay(5, TimeUnit.MINUTES)
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
