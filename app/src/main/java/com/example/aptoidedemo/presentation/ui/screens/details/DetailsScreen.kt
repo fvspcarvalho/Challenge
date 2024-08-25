@@ -15,7 +15,6 @@ import com.example.aptoidedemo.presentation.ui.resources.MyAlertDialog
 @Composable
 fun DetailsScreen(
     id: Long,
-    modifier: Modifier = Modifier,
     viewModel: DetailsViewModel = hiltViewModel(),
     onBack: () -> Unit = {}
 ) {

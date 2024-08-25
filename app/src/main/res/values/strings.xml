@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Aptoide Demo</string>
+    <string name="notification_message">You have new apps available!</string>
+    <string name="dialog_title">Dialog</string>
+    <string name="dialog_message">Download is not available in demo mode</string>
+    <string name="dialog_button_message">Confirm</string>
+    <string name="btn_dialog">Download</string>
 </resources>

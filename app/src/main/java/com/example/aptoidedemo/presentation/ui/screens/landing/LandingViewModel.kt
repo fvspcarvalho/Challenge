@@ -48,18 +48,6 @@ class LandingViewModel @Inject constructor(
         }
     }
 
-    fun onRefresh() {
-        viewModelScope.launch {
-            when (val result = aptoideManager.fetchData()) {
-                is ResultHandler.Error ->
-                    _state.emit(_state.value.copy(message = "${result.exception}"))
-
-                is ResultHandler.Success ->
-                    _state.emit(_state.value.copy(message = ""))
-            }
-        }
-    }
-
     fun showMessage() = viewModelScope.launch {
         _state.emit(_state.value.copy(message = "Notifications are turn off, go to App settings and change"))
     }

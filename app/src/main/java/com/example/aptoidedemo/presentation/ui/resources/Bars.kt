@@ -10,11 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.example.aptoidedemo.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicTopBar(
-    title: String,
+    title: String = stringResource(id = R.string.app_name),
     navigationIconEnable: Boolean = true,
     onArrowBackClick: () -> Unit = {}
 ) {

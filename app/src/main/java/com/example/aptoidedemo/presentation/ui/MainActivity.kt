@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.example.aptoidedemo.core.workManager.ConstantUtils.CHANNEL_DESCRIPTION
+import com.example.aptoidedemo.core.workManager.ConstantUtils.CHANNEL_ID
+import com.example.aptoidedemo.core.workManager.ConstantUtils.CHANNEL_NAME
 import com.example.aptoidedemo.core.workManager.NotificationWorker
 import com.example.aptoidedemo.presentation.ui.theme.AptoideDemoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,22 +36,20 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainNavigation {
                         createNotificationChannel()
-                        createWorkRequest()
                     }
                 }
             }
         }
+        createWorkRequest()
     }
 
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
-            "work_manager_channel",
-            "Work Manager Channel",
+            CHANNEL_ID,
+            CHANNEL_NAME,
             NotificationManager.IMPORTANCE_DEFAULT
-        )
-            .apply {
-                description = "Channel Description"
-            }
+        ).apply { description = CHANNEL_DESCRIPTION }
+
         val notificationManager =
             this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
