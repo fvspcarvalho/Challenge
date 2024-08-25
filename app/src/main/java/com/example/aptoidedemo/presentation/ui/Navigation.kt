@@ -22,11 +22,11 @@ enum class NavigationRoute(val route: String) {
 }
 
 @Composable
-fun MainNavigation(onGranted: () -> Unit = {}) {
+fun MainNavigation(startDestination: String = NavigationRoute.LANDING_SCREEN.route, onGranted: () -> Unit = {}) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavigationRoute.LANDING_SCREEN.route
+        startDestination = startDestination
     ) {
         composable(route = NavigationRoute.LANDING_SCREEN.route) {
             LandingScreen(
@@ -65,10 +65,7 @@ fun MainNavigation(onGranted: () -> Unit = {}) {
                 )
             }
         ) {
-            DetailsScreen(
-                id = it.arguments?.getLong("id") ?: 0,
-                modifier = Modifier.padding(16.dp)
-            ) {
+            DetailsScreen(id = it.arguments?.getLong("id") ?: 0,) {
                 navController.popBackStackLocal()
             }
         }

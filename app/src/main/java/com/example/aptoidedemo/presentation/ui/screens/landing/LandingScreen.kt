@@ -23,7 +23,6 @@ import com.example.aptoidedemo.presentation.ui.resources.rememberPermissionState
 
 @Composable
 fun LandingScreen(
-    modifier: Modifier = Modifier,
     viewModel: LandingViewModel = hiltViewModel(),
     onGranted: () -> Unit = {},
     onClick: (id: Long) -> Unit = {}
@@ -40,7 +39,6 @@ fun LandingScreen(
             isLoading = isLoading,
             message = message,
             content = data,
-            onRefresh = viewModel::onRefresh
         ) { onClick(it) }
     }
 }
@@ -51,26 +49,22 @@ fun LandingContent(
     message: String,
     content: List<Content>,
     contentPadding: PaddingValues = PaddingValues(2.dp),
-    onRefresh: () -> Unit,
     onClick: (id: Long) -> Unit,
 ) {
     BaseScreen(
         isLoading = isLoading,
-        topBar = { BasicTopBar(title = "Aptoide Demo", navigationIconEnable = false) }
+        topBar = { BasicTopBar(navigationIconEnable = false) }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = message)
-            Button(onClick = onRefresh) {
-                Text(text = "Refresh")
-            }
             LazyColumn(
                 state = rememberLazyListState(),
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = contentPadding,
             ) {
-                itemsIndexed(items = content, key = { index, item -> "${item.id}" }) { _, item ->
+                itemsIndexed(items = content, key = { _, item -> "${item.id}" }) { _, item ->
                     AppCard(
                         photo = item.icon,
                         title = item.name,

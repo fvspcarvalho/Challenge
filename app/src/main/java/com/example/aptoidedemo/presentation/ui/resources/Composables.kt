@@ -31,27 +31,31 @@ import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import com.example.aptoidedemo.R
 import kotlinx.coroutines.Dispatchers
 
 
 @Composable
 fun MyAlertDialog(
-    title: String,
+    title: String = stringResource(id = R.string.dialog_title),
+    subTitle: String = stringResource(id = R.string.dialog_message),
+    btnTitle: String = stringResource(id = R.string.btn_dialog),
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(text = title) },
-        text = { Text(text = "Download is not available in demo mode") },
+        text = { Text(text = subTitle) },
         confirmButton = { // 6
             Button(onClick = onDismiss) {
                 Text(
-                    text = "Confirm",
+                    text = btnTitle,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             }
