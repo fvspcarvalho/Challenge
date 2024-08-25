@@ -45,7 +45,7 @@ import kotlinx.coroutines.Dispatchers
 fun MyAlertDialog(
     title: String = stringResource(id = R.string.dialog_title),
     subTitle: String = stringResource(id = R.string.dialog_message),
-    btnTitle: String = stringResource(id = R.string.btn_dialog),
+    btnTitle: String = stringResource(id = R.string.dialog_button_message),
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
